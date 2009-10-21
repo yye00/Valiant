@@ -61,9 +61,6 @@ typedef struct {
   /* Parameters */
   PetscInt NumberOfVecsPerEnsemble;
   PetscInt NumberOfEnsembles;
-  PetscInt SizeOfStateVector;
-  PetscInt SizeOfObservations;
-  PetscInt NumberOfEntries;
 
   /* File locations */
   char *SimPathPrefix;
@@ -79,10 +76,6 @@ extern PetscErrorCode ValiantPEnKFDestroy(PEnKFRun *MyPEnKF);
 extern PetscErrorCode ValiantDefiant2PhLoadVecs(PEnKFRun *MyPEnKF);
 extern PetscErrorCode ValiantDefiant3PhLoadVecs(PEnKFRun *MyPEnKF);
 
-/* Write vectors To Defiant */
-extern PetscErrorCode ValiantDefiant2PhWriteVecs(PEnKFRun *MyPEnKF);
-extern PetscErrorCode ValiantDefiant3PhWriteVecs(PEnKFRun *MyPEnKF);
-
 /* Load ADCIRC vector, just to freak out people */
 extern PetscErrorCode ValiantDefiantADCIRCLoadVecs(PEnKFRun *MyPEnKF);
 
@@ -91,8 +84,8 @@ extern PetscErrorCode ValiantDefiant2PhWriteVecs(PEnKFRun *MyPEnKF);
 extern PetscErrorCode ValiantDefiant3PhWriteVecs(PEnKFRun *MyPEnKF);
 
 /* Scatter and Gather functions */
-extern PetscErrorCode ValiantPEnKFGather(PEnKFRun *MyPEnKF);
-extern PetscErrorCode ValiantPEnKFScatter(PEnKFRun *MyPEnKF);
+extern PetscErrorCode ValiantPEnKFScatterForward(PEnKFRun *MyPEnKF);
+extern PetscErrorCode ValiantPEnKFScatterReverse(PEnKFRun *MyPEnKF);
 
 /* Perform the actual data assimilation */
 extern PetscErrorCode ValiantPEnKFAssimilate(PEnKFRun *MyPEnKF);
@@ -108,5 +101,9 @@ extern PetscErrorCode ValiantPEnKFComputeCDRandomPercentage(PEnKFRun *MyPEnKF);
 
 /* Inverse normal perturbation function. Crude but effective */
 extern PetscErrorCode ValiantPEnKFPerturbNIG(PEnKFRun *MyPEnKF);
+
+/* Aggregate functions */
+extern PetscErrorCode ValiantPEnKF2Ph(PEnKFRun *MyPEnKF);
+extern PetscErrorCode ValiantPEnKF3Ph(PEnKFRun *MyPEnKF);
 
 #endif /* VALIANT_H_ */
